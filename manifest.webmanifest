@@ -1,0 +1,18 @@
+{
+  "name": "Primeros Bocados",
+  "short_name": "Bocados",
+  "description": "Alimentación complementaria del bebé: alimentos por edad, registro familiar, alérgenos y recetas.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EAF6E3",
+  "theme_color": "#FFC83D",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
