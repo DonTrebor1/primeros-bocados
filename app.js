@@ -837,3 +837,32 @@ function exportCSV() {
 }
 
 boot();
+
+/* ---------- botón "Instalar app" ---------- */
+(function () {
+  const standalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone;
+  if (standalone()) return;
+  let deferred = null;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  function banner(text, action) {
+    if (document.getElementById("installBar")) return;
+    let closed = false; try { closed = sessionStorage.getItem("installClosed") === "1"; } catch (e) {}
+    if (closed) return;
+    const b = document.createElement("div");
+    b.id = "installBar";
+    b.style.cssText = "position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:50;display:flex;gap:8px;align-items:center;padding:10px 12px;border-radius:16px;background:#FFC83D;color:#2b2118;box-shadow:0 6px 20px rgba(0,0,0,.25);font:700 14px/1.3 Nunito,system-ui,sans-serif";
+    b.innerHTML = `<span style="flex:1">${text}</span>` + (action ? `<button id="installGo" style="border:0;border-radius:12px;padding:8px 12px;background:#2b2118;color:#fff;font:inherit">Instalar</button>` : "") + `<button id="installX" aria-label="Cerrar" style="border:0;background:none;font:inherit;font-size:18px;color:inherit">✕</button>`;
+    document.body.appendChild(b);
+    b.querySelector("#installX").onclick = () => { b.remove(); try { sessionStorage.setItem("installClosed", "1"); } catch (e) {} };
+    if (action) b.querySelector("#installGo").onclick = action;
+  }
+  window.addEventListener("beforeinstallprompt", e => {
+    e.preventDefault(); deferred = e;
+    banner("📲 Instala Bocados en tu móvil", () => {
+      deferred.prompt();
+      deferred.userChoice.finally(() => { deferred = null; document.getElementById("installBar")?.remove(); });
+    });
+  });
+  window.addEventListener("appinstalled", () => document.getElementById("installBar")?.remove());
+  if (ios) setTimeout(() => banner("📲 Para instalar: toca <b>Compartir</b> y luego <b>Añadir a pantalla de inicio</b>"), 2500);
+})();

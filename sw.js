@@ -1,5 +1,5 @@
 /* Service worker: guarda la app para que abra sin conexión. Los datos viven en el propio móvil (IndexedDB). */
-const VERSION = "pb-movil-v2";
+const VERSION = "pb-movil-v3";
 const SHELL = ["./", "index.html", "styles.css", "app.js", "data.js", "local.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png",
   "fonts/baloo-2-latin-600-normal.woff2", "fonts/baloo-2-latin-800-normal.woff2", "fonts/nunito-latin-400-normal.woff2",
   "fonts/nunito-latin-600-normal.woff2", "fonts/nunito-latin-700-normal.woff2", "fonts/nunito-latin-800-normal.woff2"];
